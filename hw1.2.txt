@@ -1,0 +1,110 @@
+public class menu {
+///////field//////////////////////////////////////////////////////////////////////////////////////////
+	String name;
+	int A=0;			//A：100元
+	int B=0;			//B：120元
+	int C=0;			//C：150元
+	int D=0;			//D：200元
+	int sum;
+	boolean member;		//9折
+////////constructor///////////////////////////////////////////////////////////////////////////////////
+	public menu(String name, int a, int b, int c, int d, boolean member) {
+		super();
+		this.name = name;
+		A = a;
+		B = b;
+		C = c;
+		D = d;
+		this.member = member;
+		sum = A*100 + B*120 + C*150 + D*200 ;
+		if(member == true) {
+			sum=sum*9/10;
+		}
+	}	
+////////methods///////////////////////////////////////////////////////////////////////////////////////
+	public String show() {
+
+			return ("============訂單送出成功============"+
+					"\n "+name+" 的訂單為："+
+					"\n Salad "+A+" 份"+
+					"\n Burger "+B+" 份"+
+					"\n Pizza "+C+" 份"+
+					"\n Steak "+D+" 份"+
+					"\n 總共 "+sum+" 元");
+	}
+//////getter、setter省略
+===================================================main=================================================
+		
+//查詢上一筆訂單
+
+		JButton check = new JButton("查詢上一筆訂單");
+		check.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {				
+			output.setText(x);		
+			}
+		});	
+
+		
+//清空output、name、會員checkBox，及餐點歸零
+
+		JButton clear = new JButton("清除");
+		clear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		clear.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				A.setText("0");
+				B.setText("0");
+				C.setText("0");
+				D.setText("0");
+				name.setText("");
+				output.setText("");
+				member.setSelected(false);
+			}
+		});
+		
+
+//送出訂單	
+	
+		JButton go = new JButton("送出");
+		go.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				String orderName = name.getText();
+				String orderA = A.getText();
+				String orderB = B.getText();
+				String orderC = C.getText();
+				String orderD = D.getText();
+				boolean checkMember = false;
+				if(member.isSelected()) {
+					checkMember = true;
+				}
+				int a = Integer.parseInt(orderA);
+				int b = Integer.parseInt(orderB);
+				int c = Integer.parseInt(orderC);
+				int d = Integer.parseInt(orderD);
+				
+				
+				menu m1 = new menu(orderName,a,b,c,d,checkMember);
+				output.setText(m1.show());
+				x=m1.show();	
+			}
+		});
+
+
+//關閉畫面
+		
+		JButton exit = new JButton("關閉");
+		exit.setBackground(new Color(128, 128, 128));
+		exit.setBounds(542, 44, 78, 44);
+		panel_1.add(exit);
+		exit.setFont(new Font("標楷體", Font.PLAIN, 18));
+		exit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {System.exit(0);
+			}
+		});
